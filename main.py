@@ -5,6 +5,7 @@ from wechatpy.client.api import WeChatMessage, WeChatTemplate
 import requests
 import os
 import random
+from zhdate import ZhDate
 
 today = datetime.now()
 start_date = os.environ['START_DATE']
@@ -42,6 +43,21 @@ def get_words():
 
 def get_random_color():
   return "#%06x" % random.randint(0, 0xFFFFFF)
+
+def get_difference_chinese_calendar(gc_date, lc_date):
+    """
+    :param gc_date: the gregorian calendar 公历
+    :param lc_day: the lunar calendar 农历
+    :return:
+    """
+    year1, month1, day1 = int(gc_date[:4]), int(gc_date[4:6]), int(gc_date[6:])
+    year2, month2, day2 = int(lc_date[:4]), int(lc_date[4:6]), int(lc_date[6:])
+    gc_day = datetime(year1, month1, day1)
+
+    lc_day = ZhDate(year2, month2, day2).to_datetime()
+    difference = lc_day.toordinal() - gc_day.toordinal()
+    print(f'公历 {gc_date} 距离 农历 {lc_date} 相差 {abs(difference)} 天')
+    return difference
 
 
 client = WeChatClient(app_id, app_secret)
