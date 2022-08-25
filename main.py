@@ -23,6 +23,7 @@ template_id = os.environ["TEMPLATE_ID"]
 def get_weather():
   url = "https://www.yiketianqi.com/free/day?appid=" + wea_id + "&appsecret=" + wea_secret + "&unescape=1&=" + city
   res = requests.get(url).json()
+  print(res)
   weather = " " + res['wea'] + ", " + res['tem_night'] + "℃~" + res['tem_day'] + "℃"
   tem = " " + res['tem']
   return weather, tem
@@ -57,6 +58,7 @@ data = {"weather": {"value": wea, "color": get_random_color()},
         "love_days": {"value": get_count(), "color": get_random_color()},
         "birthday_left": {"value": get_birthday(), "color": get_random_color()},
         "words": {"value": get_words(), "color": get_random_color()}}
+ptint(data)
 res = wm.send_template(user_id, template_id, data)
 print(res)
 res_my = wm.send_template(my_id, template_id, data)
