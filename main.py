@@ -58,7 +58,7 @@ data = {"weather": {"value": wea, "color": get_random_color()},
         "love_days": {"value": get_count(), "color": get_random_color()},
         "birthday_left": {"value": get_birthday(), "color": get_random_color()},
         "words": {"value": get_words(), "color": get_random_color()}}
-ptint(data)
+print(data)
 res = wm.send_template(user_id, template_id, data)
 print(res)
 res_my = wm.send_template(my_id, template_id, data)
